@@ -1,15 +1,13 @@
 import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import apiService from './services';
-// import Container from './components/Container';
+import './App.css';
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
-// import ErrorView from './components/ErrorView';
 
 const apiService = async (query, page) => {
   const key = '25143671-fc0bcb21b6131bd14acaabd04';
@@ -41,9 +39,7 @@ class Gallery extends Component {
     const { query, page } = this.state;
 
     if (query.trim() === '') {
-      return toast.error(
-        'No-no! Dont joke with me! Enter something interesting!'
-      );
+      return toast.error('The input is empty! Enter something interesting!');
     }
 
     this.toggleLoader();
@@ -105,17 +101,14 @@ class Gallery extends Component {
   };
 
   render() {
-    // const { query, images, largeImageURL, isLoading, showModal, error } =
     const { query, images, largeImageURL, isLoading, showModal } = this.state;
     return (
-      <div>
+      <div className="container">
         <Searchbar
           onHandleSubmit={this.handleSubmit}
           onSearchQueryChange={this.handleChange}
           value={query}
         />
-
-        {/* {error && <ErrorView texterror={error} />} */}
 
         {images.length > 0 && (
           <ImageGallery images={images} onOpenModal={this.onOpenModal} />
@@ -133,7 +126,7 @@ class Gallery extends Component {
             largeImageURL={largeImageURL}
           />
         )}
-        <ToastContainer autoClose={3700} />
+        <ToastContainer autoClose={3000} />
       </div>
     );
   }
