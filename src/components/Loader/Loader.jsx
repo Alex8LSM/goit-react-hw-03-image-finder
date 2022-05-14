@@ -4,13 +4,9 @@ import s from './Loader.module.css';
 
 function Loader() {
   return (
-    <Circles
-      className={s.Loader}
-      color="green"
-      height={100}
-      width={100}
-      timeout={3000}
-    />
+    <div className={s.Loader}>
+      <Circles color="green" height={100} width={100} timeout={3000} />
+    </div>
   );
 }
 
