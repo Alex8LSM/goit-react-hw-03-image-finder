@@ -2,27 +2,12 @@ import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
+import { searchParams, apiService } from '../Services/apiService';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
-
-const searchParams = {
-  key: `25143671-fc0bcb21b6131bd14acaabd04`,
-  image_type: `photo`,
-  orientation: `horizontal`,
-  per_page: 12,
-};
-
-const apiService = async (query, page) => {
-  const { key, per_page, orientation, image_type } = searchParams;
-  const { data } = await axios.get(
-    `https://pixabay.com/api/?q=${query}&page=${page}&key=${key}&image_type=${image_type}&orientation=${orientation}&per_page=${per_page}`
-  );
-  return data;
-};
 
 class Gallery extends Component {
   state = {
