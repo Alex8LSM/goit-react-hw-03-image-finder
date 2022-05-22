@@ -1,11 +1,19 @@
 import React from 'react';
-// import { Circles } from 'react-loader-spinner';
+import FadeLoader from 'react-spinners/FadeLoader';
 import s from './Loader.module.css';
 
 function Loader() {
+  const props = {
+    color: 'blue',
+    height: 20,
+    width: 5,
+    radius: 1,
+    margin: 15,
+    speedMultiplier: 3,
+  };
   return (
     <div className={s.Loader}>
-      {/* <Circles color="green" height={100} width={100} timeout={3000} /> */}
+      <FadeLoader {...props} />
     </div>
   );
 }
