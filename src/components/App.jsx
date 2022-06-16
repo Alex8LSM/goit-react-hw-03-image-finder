@@ -32,9 +32,7 @@ class Gallery extends Component {
     }
   }
 
-  searchImages = async page => {
-    const { query } = this.state;
-
+  searchImages = async (page, query) => {
     if (query.trim() === '') {
       return toast.error('The input is empty! Enter something interesting!');
     }
@@ -77,19 +75,17 @@ class Gallery extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({ query: e.target.value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = query => {
+    this.setState({ query: query });
     this.setState({ page: 1 });
-    this.searchImages(1);
+    this.searchImages(1, query);
   };
 
   onLoadMore = () => {
+    const { query, page } = this.state;
+
+    this.searchImages(page + 1, query);
     this.setState({ page: this.state.page + 1 });
-    this.searchImages(this.state.page + 1);
     this.scrollPage();
   };
 
@@ -113,22 +109,18 @@ class Gallery extends Component {
   scrollPage = () => {
     setTimeout(() => {
       window.scrollBy({
-        top: document.documentElement.clientHeight - 160,
+        top: document.documentElement.clientHeight - 100,
         behavior: 'smooth',
       });
     }, 1000);
   };
 
   render() {
-    const { query, images, largeImageURL, isLoading, showModal, endSearch } =
+    const { images, largeImageURL, isLoading, showModal, endSearch } =
       this.state;
     return (
       <div className="container">
-        <Searchbar
-          onHandleSubmit={this.handleSubmit}
-          onSearchQueryChange={this.handleChange}
-          value={query}
-        />
+        <Searchbar onSubmit={this.handleSubmit} />
 
         {images.length > 0 && (
           <ImageGallery images={images} onOpenModal={this.onOpenModal} />
